@@ -83,7 +83,7 @@ export default function App() {
     return (
       <div className="top">
         <div className="photo">
-          <img src="/pascal-heraud.png"></img>
+          <img src="./pascal-heraud.png"></img>
         </div>
         <div className="name">
           <div className="first">Pascal</div>
@@ -252,20 +252,24 @@ export default function App() {
   }
 
   return (
-    <div
-      className={
-        "my-resume " + mode + "-mode" + (displayMap ? " fixed-mode" : "")
-      }
-    >
-      <Top />
-      <div className="content">
-        <AboutMe />
-        <div className="main">
-          <div className="experience"></div>
-          <div className="experience"></div>
-          <div className="skills"></div>
+    <>
+      <base target="_blank" />
+      <title>{t('CV de Pascal HERAUD')}</title>
+      <div
+        className={
+          "my-resume " + mode + "-mode" + (displayMap ? " fixed-mode" : "")
+        }
+      >
+        <Top />
+        <div className="content">
+          <AboutMe />
+          <div className="main">
+            <div className="experience"></div>
+            <div className="experience"></div>
+            <div className="skills"></div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
