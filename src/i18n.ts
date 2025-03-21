@@ -22,6 +22,10 @@ const resources = {
       Pragmatique: "Pragmatic",
       Curieux: "Curious",
       Rigoureux: "Rigorous",
+      Sport: "Sport",
+      Voyage: "Travel",
+      "Chant/Musique": "Singing/Music",
+      Bénévolat: "Volunteering",
     },
   },
 };

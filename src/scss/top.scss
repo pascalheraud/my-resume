@@ -1,0 +1,76 @@
+@use 'mixins';
+
+.my-resume {
+  .top {
+    background-color: var(--top-bg-color);
+    display: flex;
+    flex-direction: column;
+
+    .section {
+      display: flex;
+
+      .photo {
+        align-self: center;
+        position: relative;
+        z-index: 10;
+
+        img {
+          border: 3px solid var(--color-light);
+          height: 7em;
+          border-radius: 7em;
+        }
+      }
+
+      .name {
+        padding-top: 1em;
+        display: flex;
+        flex-direction: column;
+        font-size: 2.5em;
+        flex-grow: 1;
+
+        .first {
+          color: var(--color-light);
+        }
+
+        .last {
+          color: var(--color);
+        }
+      }
+
+      .tools {
+        padding: 0.5em;
+        display: flex;
+
+        .tools-list {
+          display: flex;
+
+          .tools-group {
+            display: flex;
+            margin: 0 1em 0 1em;
+
+            .tool {
+              padding: 0 0.1em 0 0.1em;
+
+              .icon {
+                cursor: pointer;
+                width: 1.5em;
+                margin-right: 0.5em;
+
+                &.selected {
+                  padding-bottom: 0.2em;
+                  border-bottom: 3px solid #444;
+                  margin-top: 0.3em;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &.job {
+        font-size: 3rem;
+        padding: 0rem 2rem 1rem 2rem;
+      }
+    }
+  }
+}
