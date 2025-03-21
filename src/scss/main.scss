@@ -1,0 +1,116 @@
+@use 'mixins';
+
+.my-resume {
+    .content {
+        .main {
+            padding: 1rem;
+            background-color: var(--background-color-light);
+
+            a.box-link {
+                font-size: 1rem;
+            }
+
+            .experiences {
+                margin: 1em 1em 0 1rem;
+
+                >.title {
+                    font-size: 2rem;
+                    border: solid 1em var(--color-light);
+                    border-radius: 2rem;
+                    padding-left: 1rem;
+                    text-transform: uppercase;
+                    margin: 0 0 1em 0;
+                    border-bottom: 1px solid var(--color-light);
+                    border-top: 1px solid var(--color-light);
+                    font-weight: bold;
+                }
+
+                .duration {
+                    text-wrap: nowrap;
+                }
+
+                .occupation {
+                    &:not(:first-child) {
+                        margin-top: 4rem;
+                    }
+
+                    .company {
+                        font-size: 1.5rem;
+
+                        a {
+                            margin: 0 0.5em 0 0.5rem;
+                            font-size: 1rem;
+                        }
+                    }
+
+                    .location {
+                        padding-bottom: 0.2rem;
+                    }
+
+
+                    .header {
+                        border-left: 0.5rem solid var(--color-light);
+                        border-top: 0.5rem solid var(--color-light);
+                        padding-left: 0.5rem;
+
+                        .company {
+                            &::first-letter {
+                                font-size: 3rem;
+                                font-weight: bolder;
+                            }
+                        }
+
+                        .job {
+                            margin: 0 0 1em 1.8rem;
+                            font-weight: bolder;
+                            font-size: 1.2rem;
+                        }
+
+                        .infos {
+                            display: flex;
+                        }
+                    }
+
+                    .mission {
+                        &:not(:first-child) {
+                            margin-top: 4rem;
+
+                        }
+
+                        margin: 1em 0 0 1rem;
+
+                        .title {
+                            display: flex;
+
+                            a {
+                                margin: 0 0.5em 0 0.5rem;
+                            }
+                        }
+
+                        .technologies {
+                            display: flex;
+                            font-size: 0.9rem;
+                            flex-wrap: wrap;
+                            row-gap: 0.5rem;
+
+                            >div {
+                                color: black;
+                                border-radius: 1rem;
+                                padding: 0 1em 0 1rem;
+                                border: 1px solid white;
+                                margin: 0 0.2em 0 0.2rem;
+                                white-space: nowrap;
+                            }
+                        }
+                    }
+
+                    .icon {
+                        font-size: 1.2rem;
+                        margin: 0 0.4em 0 0.3rem;
+                        width: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,8 +1,13 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./App.scss";
+import "@fontsource/esteban/400.css";
+import "@fontsource/fira-code/400.css";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import {
   faArrowsToCircle,
+  faBurger,
+  faCalendar,
   faCircleHalfStroke,
+  faClock,
   faCompass,
   faGears,
   faGlasses,
@@ -10,26 +15,33 @@ import {
   faHandHoldingHand,
   faList,
   faLocationDot,
+  faMagnifyingGlassMinus,
+  faMagnifyingGlassPlus,
   faMusic,
   faPersonCircleQuestion,
   faPersonWalking,
   faSkullCrossbones,
+  faSquareCaretRight,
+  faSquareUpRight,
   faSun,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import React, { useEffect, useState } from "react";
-import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import fr from "./assets/fr.svg";
 import en from "./assets/gb.svg";
 import it from "./assets/it.svg";
-import { useTranslation } from "react-i18next";
 import { LanguagesType } from "./i18n";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import "./scss/App.scss";
 
 export default function App() {
   const { t, i18n } = useTranslation();
   const [displayMap, setDisplayMap] = useState(false);
   const [mode, setMode] = useState<"dark" | "geek" | "sun">("sun");
+  const [fontSize, setFontSize] = useState(5);
+  const [displayBurger, setDisplayBurger] = useState(false);
 
   useEffect(() => {
     if (displayMap) {
@@ -38,6 +50,35 @@ export default function App() {
       document.body.style.overflow = "auto";
     }
   }, [displayMap]);
+
+  function onclickBurger() {
+    setDisplayBurger(!displayBurger);
+  }
+
+  const changeFontSize = useCallback(
+    (inc: number) => {
+      document
+        .getElementsByTagName("html")[0]
+        .classList.remove("size-" + fontSize);
+      setFontSize(fontSize + inc);
+      document
+        .getElementsByTagName("html")[0]
+        .classList.add("size-" + (fontSize + inc));
+    },
+    [fontSize]
+  );
+
+  const onClickSmaller = useCallback(() => {
+    if (fontSize > 1) {
+      changeFontSize(-1);
+    }
+  }, [fontSize, changeFontSize]);
+
+  const onClickBigger = useCallback(() => {
+    if (fontSize < 10) {
+      changeFontSize(1);
+    }
+  }, [fontSize, changeFontSize]);
 
   function onClickMap() {
     setDisplayMap(!displayMap);
@@ -51,17 +92,57 @@ export default function App() {
     return other + (condition ? " " + conditionnalClass : "");
   }
 
-  async function changeLanguage(language: LanguagesType) {
-    await i18n.changeLanguage(language);
-  }
+  const changeLanguage = useCallback(
+    async (language: LanguagesType) => {
+      await i18n.changeLanguage(language);
+    },
+    [i18n]
+  );
 
-  async function onClickEnglish() {
+  const onClickEnglish = useCallback(async () => {
     await changeLanguage("en");
-  }
+  }, [changeLanguage]);
 
-  async function onClickFrench() {
+  const onClickFrench = useCallback(async () => {
     await changeLanguage("fr");
-  }
+  }, [changeLanguage]);
+
+  const onKey = useCallback(
+    (event: KeyboardEvent) => {
+      switch (event.key.toLocaleUpperCase()) {
+        case "-":
+          onClickSmaller();
+          break;
+        case "+":
+          onClickBigger();
+          break;
+        case "G":
+          setMode("geek");
+          break;
+        case "D":
+          setMode("dark");
+          break;
+        case "L":
+          setMode("sun");
+          break;
+        case "F":
+          onClickFrench();
+          break;
+        case "E":
+          onClickEnglish();
+          break;
+      }
+    },
+    [onClickBigger, onClickEnglish, onClickFrench, onClickSmaller]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", onKey);
+
+    return () => {
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [onKey]);
 
   function Map() {
     if (displayMap) {
@@ -82,70 +163,102 @@ export default function App() {
   function Top() {
     return (
       <div className="top">
-        <div className="photo">
-          <img src="./pascal-heraud.png"></img>
-        </div>
-        <div className="name">
-          <div className="first">Pascal</div>
-          <div className="last">HERAUD</div>
-        </div>
-        <div className="tools">
-          <div className="tools-group">
-            <div
-              className="tool"
-              onClick={() => setMode("geek")}
-              title={t("Mode Geek")}
-            >
-              <FontAwesomeIcon
-                icon={faGlasses}
-                className={dynamicClass("icon", mode == "geek", "selected")}
-              />
+        <div className="section">
+          <div className="photo">
+            <img src="./pascal-heraud.png"></img>
+          </div>
+          <div className="name">
+            <div className="first">Pascal</div>
+            <div className="last">HERAUD</div>
+          </div>
+          <div className={"tools" + (displayBurger ? " visible" : "")}>
+            <div className="tools-list">
+              <div className="tools-group">
+                <div
+                  className="tool"
+                  onClick={onClickSmaller}
+                  title={t("Diminuer la police ( Raccourci : - )")}
+                >
+                  <FontAwesomeIcon
+                    icon={faMagnifyingGlassMinus}
+                    className="icon"
+                  />
+                </div>
+                <div
+                  className="tool"
+                  onClick={onClickBigger}
+                  title={t("Aggrandir la police ( Raccourci : +)")}
+                >
+                  <FontAwesomeIcon
+                    icon={faMagnifyingGlassPlus}
+                    className="icon"
+                  />
+                </div>
+              </div>
+              <div className="tools-group">
+                <div
+                  className="tool"
+                  onClick={() => setMode("geek")}
+                  title={t("Mode Geek ( Raccourci : G )")}
+                >
+                  <FontAwesomeIcon
+                    icon={faGlasses}
+                    className={dynamicClass("icon", mode == "geek", "selected")}
+                  />
+                </div>
+                <div
+                  className="tool"
+                  onClick={() => setMode("dark")}
+                  title={t("Mode Sombre ( Raccourci : D )")}
+                >
+                  <FontAwesomeIcon
+                    icon={faCircleHalfStroke}
+                    className={dynamicClass("icon", mode == "dark", "selected")}
+                  />
+                </div>
+                <div
+                  className="tool"
+                  onClick={() => setMode("sun")}
+                  title={t("Mode Clair ( Raccourci : L )")}
+                >
+                  <FontAwesomeIcon
+                    icon={faSun}
+                    className={dynamicClass("icon", mode == "sun", "selected")}
+                  />
+                </div>
+              </div>
+              <div className="tools-group">
+                <div className="tool" onClick={onClickFrench}>
+                  <img
+                    src={fr}
+                    className={dynamicClass(
+                      "icon",
+                      i18n.language === "fr",
+                      "selected"
+                    )}
+                    title={t("Ce CV en Français ( Raccourci : F )")}
+                  />
+                </div>
+                <div className="tool" onClick={onClickEnglish}>
+                  <img
+                    src={en}
+                    className={dynamicClass(
+                      "icon language",
+                      i18n.language === "en",
+                      "selected"
+                    )}
+                    title={t("Ce CV en Anglais ( Raccourci : E )")}
+                  />
+                </div>
+              </div>
             </div>
-            <div
-              className="tool"
-              onClick={() => setMode("dark")}
-              title={t("Mode Sombre")}
-            >
-              <FontAwesomeIcon
-                icon={faCircleHalfStroke}
-                className={dynamicClass("icon", mode == "dark", "selected")}
-              />
-            </div>
-            <div
-              className="tool"
-              onClick={() => setMode("sun")}
-              title={t("Mode Clair")}
-            >
-              <FontAwesomeIcon
-                icon={faSun}
-                className={dynamicClass("icon", mode == "sun", "selected")}
-              />
+            <div className="burger" onClick={onclickBurger}>
+              <FontAwesomeIcon icon={faBurger} />
             </div>
           </div>
-          <div className="tools-group">
-            <div className="tool" onClick={onClickFrench}>
-              <img
-                src={fr}
-                className={dynamicClass(
-                  "icon",
-                  i18n.language === "fr",
-                  "selected"
-                )}
-                title={t("Ce CV en Français")}
-              />
-            </div>
-            <div className="tool" onClick={onClickEnglish}>
-              <img
-                src={en}
-                className={dynamicClass(
-                  "icon language",
-                  i18n.language === "en",
-                  "selected"
-                )}
-                title={t("Ce CV en Anglais")}
-              />
-            </div>
-          </div>
+        </div>
+        <div className="section job">
+          {t("Développeur Senior Java/JS Fullstack")}
         </div>
       </div>
     );
@@ -174,78 +287,745 @@ export default function App() {
   function AboutMe() {
     return (
       <div className="about-me">
-        <div className="section">
-          <div className="title">{t("Contact")}</div>
-          <Item className="location" icon={faLocationDot} onClick={onClickMap}>
-            Pontcharra, France
-          </Item>
-          <Map />
-          <Item className="social" icon={faLinkedin}>
-            <a href="https://www.linkedin.com/in/pascal-heraud" target="_blank">
-              @pascal-heraud
-            </a>
-          </Item>
-          <Item className="social" icon={faGithub}>
-            <a href="https://github.com/pascalheraud" target="_blank">
-              @pascalheraud
-            </a>
-          </Item>
-          <Item className="social" icon={faSkullCrossbones}>
-            <a href="https://www.root-me.org/pascal242?lang=fr" target="_blank">
-              @pascal242
-            </a>
-          </Item>
+        <div className="sections">
+          <div className="section">
+            <div className="title">{t("Contact")}</div>
+            <Item
+              className="location"
+              icon={faLocationDot}
+              onClick={onClickMap}
+            >
+              Pontcharra, France
+            </Item>
+            <Map />
+            <Item className="social" icon={faLinkedin}>
+              <a
+                href="https://www.linkedin.com/in/pascal-heraud"
+                target="_blank"
+              >
+                @pascal-heraud
+              </a>
+            </Item>
+            <Item className="social" icon={faGithub}>
+              <a href="https://github.com/pascalheraud" target="_blank">
+                @pascalheraud
+              </a>
+            </Item>
+            <Item className="social" icon={faSkullCrossbones}>
+              <a
+                href="https://www.root-me.org/pascal242?lang=fr"
+                target="_blank"
+              >
+                @pascal242
+              </a>
+            </Item>
+          </div>
+          <div className="section">
+            <div className="title">{t("Formation")}</div>
+            <Item className="" icon={faGraduationCap}>
+              BAC E (1989)
+            </Item>
+            <Item className="" icon={faGraduationCap}>
+              DEA Informatique (1995)
+            </Item>
+          </div>
+          <div className="section">
+            <div className="title">{t("Langues")}</div>
+            <Item
+              image={fr}
+              className={dynamicClass(
+                "language selectable",
+                i18n.language === "fr",
+                "selected"
+              )}
+              onClick={onClickFrench}
+            >
+              {t("Français")} (C2)
+            </Item>
+            <Item
+              image={fr}
+              className={dynamicClass(
+                "language selectable",
+                i18n.language === "en",
+                "selected"
+              )}
+              onClick={onClickEnglish}
+            >
+              {t("Anglais")} (B2)
+            </Item>
+            <Item image={it} className="language">
+              {t("Italien")} (A1)
+            </Item>
+          </div>
+          <div className="section">
+            <div className="title">{t("Compétences générales")}</div>
+            <Item icon={faArrowsToCircle}>{t("Orienté résultat")}</Item>
+            <Item icon={faGears}>{t("Pragmatique")}</Item>
+            <Item icon={faPersonCircleQuestion}>{t("Curieux")}</Item>
+            <Item icon={faList}>{t("Rigoureux")}</Item>
+          </div>
+          <div className="section">
+            <div className="title">{t("Intérêts")}</div>
+            <Item icon={faPersonWalking}>{t("Sport")}</Item>
+            <Item icon={faCompass}>{t("Voyage")}</Item>
+            <Item icon={faMusic}>{t("Chant/Musique")}</Item>
+            <Item icon={faHandHoldingHand}>{t("Bénévolat")}</Item>
+          </div>
         </div>
-        <div className="section">
-          <div className="title">{t("Formation")}</div>
-          <Item className="" icon={faGraduationCap}>
-            BAC E (1989)
-          </Item>
-          <Item className="" icon={faGraduationCap}>
-            DEA Informatique (1995)
-          </Item>
+        <div className="section technologies">
+          <div className="title">{t("Compétences techniques")}</div>
+          <div className="techs">
+            <div className="backend">Java (30 ans)</div>
+            <div className="backend">Postgresql (15 ans)</div>
+            <div className="backend">Postgis (15 ans)</div>
+            <div className="backend">Oracle (5 ans)</div>
+            <div className="backend">Tomcat (10 ans)</div>
+            <div className="backend">Hibernate(10 ans)</div>
+            <div className="backend">Spring MVC (15 ans)</div>
+            <div className="backend">Junit (20 ans)</div>
+            <div className="build">Maven (20 ans)</div>
+            <div className="build">Docker (10 ans)</div>
+            <div className="build">Gitlab (10 ans)</div>
+            <div className="build">Git (10 ans)</div>
+            <div className="frontend">Typescript (5 ans)</div>
+            <div className="frontend">Selenium (20 ans)</div>
+            <div className="frontend">Vue.js (7 ans)</div>
+            <div className="frontend">Capacitor (1 an)</div>
+            <div className="frontend">React (2 mois)</div>
+            <div className="frontend">Angular (2 mois)</div>
+            <div className="devops">Zabbix (15 ans)</div>
+            <div className="devops">Ansible (15 ans)</div>
+            <div className="devops">Debian (15 ans)</div>
+          </div>
         </div>
-        <div className="section">
-          <div className="title">{t("Langues")}</div>
-          <Item
-            image={fr}
-            className={dynamicClass(
-              "item language",
-              i18n.language === "fr",
-              "selected"
-            )}
-            onClick={onClickFrench}
+      </div>
+    );
+  }
+
+  function LaRoueVerte() {
+    return (
+      <div className="occupation">
+        <div className="header">
+          <div className="company">La Roue Verte</div>
+          <div className="job">
+            {t(" Associé / Architecte / Développeur / Devops")}
+          </div>
+          <div className="infos">
+            <div className="location">
+              <FontAwesomeIcon icon={faLocationDot} className="icon" />
+              Grenoble
+            </div>
+            <div className="period">
+              <FontAwesomeIcon icon={faCalendar} className="icon" />
+              2011-2025
+            </div>
+            <div className="duration">
+              <FontAwesomeIcon icon={faClock} className="icon" />
+              11 ans
+            </div>
+          </div>
+        </div>
+        <div className="missions">
+          <GZ />
+          <IllicovPhase1 />
+          <IllicovPhase2 />
+        </div>
+      </div>
+    );
+  }
+
+  function ObjetDirect() {
+    return (
+      <div className="occupation">
+        <div className="header">
+          <div className="company">
+            Objet Direct / Viseo{" "}
+            <a href="https://www.viseo.com/fr/" target="_blank">
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </a>{" "}
+          </div>
+          <div className="job">
+            {t(" Consultant / Développeur / Architecte / Formateur")}
+          </div>
+          <div className="infos">
+            <div className="location">
+              <FontAwesomeIcon icon={faLocationDot} className="icon" />
+              Grenoble
+            </div>
+            <div className="period">
+              <FontAwesomeIcon icon={faCalendar} className="icon" />
+              2000-2011
+            </div>
+            <div className="duration">
+              <FontAwesomeIcon icon={faClock} className="icon" />
+              11 ans
+            </div>
+          </div>
+        </div>
+        <div className="missions">
+          <Kelkoo2 />
+          <ST />
+          <Kelkoo1 />
+          <HP />
+          <CreditAgricole />
+        </div>
+      </div>
+    );
+  }
+
+  function CreditAgricole() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+          {t("Architecture et déveveloppement du dossier client")}
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />
+            18 mois en 2000
+          </div>
+        </div>
+        <div className="company">
+          AMT / Crédit Agricole Technologies et Services
+          <a
+            href="https://www.linkedin.com/company/credit-agricole-technologies-et-services/?originalSubdomain=fr"
+            target="_blank"
           >
-            {t("Français")} (C2)
-          </Item>
-          <Item
-            image={fr}
-            className={dynamicClass(
-              "language",
-              i18n.language === "en",
-              "selected"
-            )}
-            onClick={onClickEnglish}
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </a>
+          <div className="location">
+            <FontAwesomeIcon icon={faLocationDot} className="icon" />
+            Annecy
+          </div>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t(
+                "Premiers développements d'une archicture multi couche conçue pour la refonte d'une application web"
+              )}
+            </li>
+            <li>{t("Prototypage et expérimentation")}</li>
+            <li>{t("Interface avec les services métiers Cobol")}</li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="backend">Weblogic</div>
+          <div className="backend">Java</div>
+          <div className="build">Visual Source Safe</div>
+          <div className="frontend">CSS</div>
+          <div className="frontend">Javascript</div>
+          <div className="frontend">XML / XSLT</div>
+        </div>
+      </div>
+    );
+  }
+
+  function HP() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+          {t("Développement d'un site de gestion de licences")}
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />
+            10 mois en 2001
+          </div>
+        </div>
+        <div className="company">
+          Hewlett Packard
+          <a href="https://www.hpe.com/" target="_blank">
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </a>
+          <div className="location">
+            <FontAwesomeIcon icon={faLocationDot} className="icon" />
+            Grenoble
+          </div>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t(
+                "Premiers développements d'une archicture multi couche conçue pour la refonte d'une application web"
+              )}
+            </li>
+            <li>{t("Prototypage et expérimentation")}</li>
+            <li>{t("Interface avec les services métiers Cobol")}</li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="backend">Oracle</div>
+          <div className="backend">Java</div>
+          <div className="backend">Struts</div>
+          <div className="backend">C++</div>
+          <div className="backend">Corba</div>
+          <div className="build">CVS</div>
+          <div className="frontend">CSS</div>
+          <div className="frontend">Javascript</div>
+          <div className="frontend">jQuery</div>
+        </div>
+      </div>
+    );
+  }
+
+  function Kelkoo1() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+          {t("Développement du nouveau moteur d'indexation d'offres")}
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />3 ans en 2003
+          </div>
+        </div>
+        <div className="company">
+          Kelkoo
+          <a href="https://www.kelkoo.fr/" target="_blank">
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </a>
+          <div className="location">
+            <FontAwesomeIcon icon={faLocationDot} className="icon" />
+            Grenoble
+          </div>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t("Développement et conception d'une architecture par messages")}
+            </li>
+            <li>{t("Développement des indexations")}</li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="backend">Mysql</div>
+          <div className="backend">Java</div>
+          <div className="backend">Apache Lucene</div>
+          <div className="build">SVN</div>
+        </div>
+      </div>
+    );
+  }
+
+  function Kelkoo2() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+          {t("Création et déploiements des packages de monitoring")}
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />1 an en 2010
+          </div>
+        </div>
+        <div className="company">
+          Kelkoo
+          <a href="https://www.kelkoo.fr/" target="_blank">
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </a>
+          <div className="location">
+            <FontAwesomeIcon icon={faLocationDot} className="icon" />
+            Grenoble
+          </div>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t(
+                "Développement des sondes Nagios pour monitoring des WebServices Kelkoo"
+              )}
+            </li>
+            <li>{t("Packaging et mise en production")}</li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="backend">Nagios</div>
+          <div className="backend">Perl</div>
+          <div className="build">SVN</div>
+        </div>
+      </div>
+    );
+  }
+
+  function ST() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+          {t(
+            "Référent technique pour l'Architecture et développements d'applications web"
+          )}
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />3 ans en 2006
+          </div>
+        </div>
+        <div className="company">
+          STMicroelectronics
+          <a href="https://www.st.com/" target="_blank" className="box-link">
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </a>
+          <div className="location">
+            <FontAwesomeIcon icon={faLocationDot} className="icon" />
+            Crolles
+          </div>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t(
+                'Mise en place du "Cadre de cohérence Web" : Ensemble de composants et règles pour le développement d\'applications web'
+              )}
+            </li>
+            <li>{t("Conception / Développement des composants")}</li>
+            <li>{t("Coaching et formation des équipes de développement")}</li>
+            <li>
+              {t(
+                "Contexte international avec les équipes d'HP Services (Grande-Bretagne, USA), ST Catagne (Italie)"
+              )}
+            </li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="backend">Oracle</div>
+          <div className="backend">Java</div>
+          <div className="backend">Struts</div>
+          <div className="backend">XML</div>
+          <div className="build">ClearCase</div>
+          <div className="build">ClearQuest</div>
+          <div className="frontend">Javascript</div>
+          <div className="frontend">Applets</div>
+          <div className="frontend">jQuery</div>
+        </div>
+      </div>
+    );
+  }
+
+  function RandoVTT() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+          {t("Moteur de recherche de traces GPS pour le VTT")}
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />
+            10 ans en 2010
+          </div>
+        </div>
+        <div className="company">
+          RandoVTT.com
+          <a
+            href="http://web.archive.org/web/20210210201532/http://www.randovtt.com/"
+            target="_blank"
+            className="box-link"
           >
-            {t("Anglais")} (B2)
-          </Item>
-          <Item image={it} className="language">
-            {t("Italien")} (A1)
-          </Item>
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </a>
         </div>
-        <div className="section">
-          <div className="title">{t("Compétences générales")}</div>
-          <Item icon={faArrowsToCircle}>{t("Orienté résultat")}</Item>
-          <Item icon={faGears}>{t("Pragmatique")}</Item>
-          <Item icon={faPersonCircleQuestion}>{t("Curieux")}</Item>
-          <Item icon={faList}>{t("Rigoureux")}</Item>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t(
+                "Robot d'indexation des traces GPS sur les principaux sites de partage"
+              )}
+            </li>
+            <li>
+              {t(
+                "Moteur de recherche géographique de traces par une sélection sur une carte"
+              )}
+            </li>
+            <li>{t("Site internet d'affichage des traces")}</li>
+          </ul>
         </div>
-        <div className="section">
-          <div className="title">{t("Intérêts")}</div>
-          <Item icon={faPersonWalking}>{t("Sport")}</Item>
-          <Item icon={faCompass}>{t("Voyage")}</Item>
-          <Item icon={faMusic}>{t("Chant/Musique")}</Item>
-          <Item icon={faHandHoldingHand}>{t("Bénévolat")}</Item>
+        <div className="technologies">
+          <div className="backend">Postgresql</div>
+          <div className="backend">Postgis</div>
+          <div className="backend">Java</div>
+          <div className="backend">Spring MVC</div>
+          <div className="frontend">Javascript</div>
+          <div className="frontend">jQuery</div>
+        </div>
+      </div>
+    );
+  }
+
+  function Diaps() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+          {t("Outil d'aide à la rédaction des rapports de Graphothérapie")}
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />1 an en 2020
+          </div>
+          <a href="https://github.com/pascalheraud/diaps" target="_blank" className="box-link">
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </a>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t(
+                "Création d'un prototype de site internet pour une amie graphothérapeute"
+              )}
+            </li>
+            <li>
+              {t(
+                "Recueill des besoins et conception de l'interface du prototype"
+              )}
+            </li>
+            <li>
+              {t("Moteur de génération d'un rapport à partir d'un modèle word")}
+            </li>
+            <li>
+              {t("Projet en cours de finalisation et de commercialisation")}
+            </li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="backend">Postgresql</div>
+          <div className="backend">Postgis</div>
+          <div className="backend">Java</div>
+          <div className="backend">Spring Boot</div>
+          <div className="backend">FlyDB</div>
+          <div className="backend">Doc4J</div>
+          <div className="backend">Spring MVC</div>
+          <div className="frontend">Typescript</div>
+          <div className="frontend">jQuery</div>
+        </div>
+      </div>
+    );
+  }
+
+  function GZ() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+          {t("Développement de sites de covoiturage en marque blanche")}{" "}
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />6 ans
+          </div>
+          <a
+            href="https://www.laroueverte.com"
+            target="_blank"
+            className="box-link"
+          >
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </a>
+          <a
+            href="http://web.archive.org/web/20250309010341/http://laroueverte.com/"
+            target="_blank"
+            className="box-link"
+          >
+            <FontAwesomeIcon icon={faSquareUpRight} />
+          </a>
+          <a
+            href="https://www.covoiturage76.net/"
+            target="_blank"
+            className="box-link"
+          >
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </a>
+          <a
+            href="http://web.archive.org/web/20220408151649/https://www.covoiturage76.net/"
+            target="_blank"
+            className="box-link"
+          >
+            <FontAwesomeIcon icon={faSquareUpRight} />
+          </a>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t("Mise en place de l'architecture logicielle et matérielle")}
+            </li>
+            <li>{t("Architecture et conception de l'application")}</li>
+            <li>{t("Migration postgresql")}</li>
+            <li>{t("Conception d'un mécanisme de marque blanche")}</li>
+            <li>
+              {t(
+                "Conception et implémentation d'un moteur de matching de covoiturage"
+              )}
+            </li>
+            <li>
+              {t(
+                "Développement et conception d'un Dealer Locator en Pur Javascript"
+              )}
+            </li>
+            <li>
+              {t(
+                "Intégration d'APIs de partenaires (Sitra/Apidae, Covoiturage, SSO, ...)"
+              )}
+            </li>
+            <li>
+              {t(
+                "Développement d'un site de covoiturage pour le CNFPT. Intégration automatique des données des formations."
+              )}
+            </li>
+            <li>{t("Fourniture d'APIs de covoiturage aux partenaires")}</li>
+            <li>{t("Réalisation d'une App Android hybride avec Crosswalk")}</li>
+            <li>
+              {t("Déploiement / Administration / Monitoring en production")}
+            </li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="db">Postgresql</div>
+          <div className="db">Postgis</div>
+          <div className="backend">Jboss</div>
+          <div className="backend">Java 8</div>
+          <div className="backend">Hibernate</div>
+          <div className="backend">Spring MVC</div>
+          <div className="build">Maven</div>
+          <div className="build">Ant</div>
+          <div className="build">Docker</div>
+          <div className="build">SVN/GIT</div>
+          <div className="build">Jenkins</div>
+          <div className="build">Redmine</div>
+          <div className="frontend">CSS</div>
+          <div className="frontend">Javascript</div>
+          <div className="frontend">jQuery</div>
+          <div className="frontend">Google maps</div>
+          <div className="devops">Zabbix</div>
+          <div className="devops">Ansible</div>
+          <div className="devops">Debian</div>
+        </div>
+      </div>
+    );
+  }
+
+  function IllicovPhase1() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+          {t("Développement d'un site de covoiturage de lignes illicov.fr")}
+          <a href="https://illicov.fr" target="_blank" className="box-link">
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </a>
+          <a
+            href="http://web.archive.org/web/20240130164747/https://illicov.fr/"
+            target="_blank"
+            className="box-link"
+          >
+            <FontAwesomeIcon icon={faSquareUpRight} />
+          </a>
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />3 ans
+          </div>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t("Mise en place de l'architecture logicielle et matérielle")}
+            </li>
+            <li>{t("Architecture et conception de l'application")}</li>
+            <li>
+              {t(
+                "Conception et implémentation d'un moteur de matching de covoiturage"
+              )}
+            </li>
+            <li>{t("Mise en place de procédures de développement")}</li>
+            <li>
+              {t("Déploiement / Administration / Monitoring en production")}
+            </li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="db">Postgresql</div>
+          <div className="db">Postgis</div>
+          <div className="backend">Tomcat</div>
+          <div className="backend">Java 17</div>
+          <div className="backend">Spring MVC</div>
+          <div className="backend">Spring JDBC</div>
+          <div className="backend">Junit</div>
+          <div className="build">Maven</div>
+          <div className="build">Docker</div>
+          <div className="build">Git</div>
+          <div className="build">Gitlab</div>
+          <div className="frontend">SCSS</div>
+          <div className="frontend">Javascript</div>
+          <div className="frontend">Selenium</div>
+          <div className="frontend">Vue.js</div>
+          <div className="frontend">Open street maps</div>
+          <div className="devops">Zabbix</div>
+          <div className="devops">Ansible</div>
+          <div className="devops">Debian</div>
+        </div>
+      </div>
+    );
+  }
+
+  function IllicovPhase2() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+          {t(
+            "Modernisation et extension d'un site de covoiturage de lignes illicov.fr"
+          )}{" "}
+          <a href="https://illicov.fr" className="box-link" target="_blank">
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </a>
+          <a
+            href="http://web.archive.org/web/20240130164747/https://illicov.fr/"
+            target="_blank"
+            className="box-link"
+          >
+            <FontAwesomeIcon icon={faSquareUpRight} />
+          </a>
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />5 ans
+          </div>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>{t("Modernisation de la stack front")}</li>
+            <li>
+              {t(
+                "Développement d'une application Mobile hybride iOS / Android"
+              )}
+            </li>
+            <li>
+              {t("Déploiement / Administration / Monitoring en production")}
+            </li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="db">Postgresql</div>
+          <div className="db">Postgis</div>
+          <div className="backend">Tomcat</div>
+          <div className="backend">Java 17</div>
+          <div className="backend">Spring MVC</div>
+          <div className="backend">Spring JDBC</div>
+          <div className="backend">Junit</div>
+          <div className="build">Maven</div>
+          <div className="build">Docker</div>
+          <div className="build">Git</div>
+          <div className="build">Gitlab</div>
+          <div className="frontend">SCSS</div>
+          <div className="frontend">Typescript</div>
+          <div className="frontend">Selenium</div>
+          <div className="frontend">Vue.js</div>
+          <div className="frontend">Open street maps</div>
+          <div className="frontend">Jest/Vitest</div>
+          <div className="frontend">Capacitor</div>
+          <div className="devops">Zabbix</div>
+          <div className="devops">Ansible</div>
+          <div className="devops">Debian</div>
+        </div>
+      </div>
+    );
+  }
+
+  function PersonalProjects() {
+    return (
+      <div className="occupation">
+        <div className="header">
+          <div className="company">
+            Parce que l'informatique est une passion mais aussi pour me former
+          </div>
+        </div>
+        <div className="missions">
+          <RandoVTT />
+          <Diaps />
         </div>
       </div>
     );
@@ -254,19 +1034,35 @@ export default function App() {
   return (
     <>
       <base target="_blank" />
-      <title>{t('CV de Pascal HERAUD')}</title>
+      <title>{t("CV de Pascal HERAUD")}</title>
       <div
         className={
-          "my-resume " + mode + "-mode" + (displayMap ? " fixed-mode" : "")
+          "my-resume " +
+          mode +
+          "-mode" +
+          (displayMap ? " fixed-mode" : "") +
+          (" size-" + fontSize)
         }
       >
-        <Top />
-        <div className="content">
-          <AboutMe />
-          <div className="main">
-            <div className="experience"></div>
-            <div className="experience"></div>
-            <div className="skills"></div>
+        <div className="container">
+          <Top />
+          <div className="content">
+            <AboutMe />
+            <div className="main">
+              <div className="experiences">
+                <div className="title">{t("Expériences")}</div>
+                <div className="occupations">
+                  <LaRoueVerte />
+                  <ObjetDirect />
+                </div>
+              </div>
+              <div className="experiences personal">
+                <div className="title">{t("Projets personnels")}</div>
+                <div className="occupations">
+                  <PersonalProjects />
+                </div>{" "}
+              </div>
+            </div>
           </div>
         </div>
       </div>

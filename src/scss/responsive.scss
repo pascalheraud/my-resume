@@ -1,0 +1,202 @@
+@use 'mixins';
+
+$mobile-bp: 660px;
+$tablet-bp: 1300px;
+
+// Responsiveness common to mobile & tablets
+@media screen and (max-width: $tablet-bp) {
+    .my-resume {
+        .top {
+            border-radius: 1rem;
+        }
+
+        .content {
+            .main {
+                border-radius: 1rem;
+            }
+
+            .about-me {
+                border-radius: 1rem;
+                
+                .item {
+                    text-wrap: nowrap;
+                }
+                
+                .sections {
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    gap: 1rem;
+                }
+
+                .technologies .techs {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $mobile-bp) {
+    .my-resume {
+        .content {
+            flex-direction: column;
+
+            .main {
+                margin: 1em 0 0 0;
+            }
+        }
+
+        .top {
+            margin-bottom: 1rem;
+
+            .section {
+                .photo {
+                    padding-left: 1rem;
+                }
+
+                .name {
+                    padding-left: 1rem;
+                    padding-bottom: 1rem;
+                }
+
+                .tools {
+                    position: absolute;
+                    right: 1rem;
+
+                    &.visible {
+                        z-index: 10;
+                        background-color: var(--background-color);
+                        border: 0.3rem solid var(--background-color-invert);
+
+                        .tools-list {
+                            .tools-group {
+                                margin: 0 0.5em 0 0.5rem;
+                                display: flex;
+
+                                &:not(:last-child) {
+                                    border-bottom: 1px solid black;
+                                }
+
+                                .tool {
+                                    padding: 1rem;
+                                    font-size: 1.5rem;
+                                }
+                            }
+                        }
+                    }
+
+                    .tools-list {
+                        flex-direction: column;
+
+                        .tools-group {
+                            flex-direction: row;
+                            display: none;
+                        }
+
+                    }
+
+                    .burger {
+                        svg {
+                            height: 2rem;
+                        }
+
+                        margin-right:0.5rem;
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: ($mobile-bp + 1px)) and (max-width: $tablet-bp) {
+    .my-resume {
+        .content {
+            flex-direction: column;
+
+            .main {
+                margin: 1em 0 0 0;
+            }
+        }
+
+        .top {
+            margin-bottom: 1rem;
+
+            .section {
+                .photo {
+                    padding-left: 1rem;
+                }
+
+                .name {
+                    padding-left: 1rem;
+                }
+
+                .tools {
+                    display: flex;
+
+                    .tools-group {
+                        display: flex;
+                    }
+
+                    .burger {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: ($tablet-bp + 1px)) {
+    .container {
+        max-width: 1200px;
+
+        .top {
+            border-bottom-right-radius: 1rem;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+
+            .section {
+                .name {
+                    padding-left: 3rem;
+                }
+
+                .photo {
+                    top: 1.5rem;
+                    padding-left: 4rem;
+                }
+
+                .tools {
+                    display: flex;
+
+                    .tools-group {
+                        display: flex;
+                    }
+
+                    .burger {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .content {
+            max-width: 1200px;
+
+            .about-me {
+                border-bottom-left-radius: 1rem;
+                min-width: 15rem;
+            }
+
+            .main {
+                @include mixins.border-right-radius(1em);
+                margin: 1em 0 0 1rem;
+            }
+
+        }
+    }
+}
