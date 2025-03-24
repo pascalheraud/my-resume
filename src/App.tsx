@@ -9,6 +9,7 @@ import {
   faCircleHalfStroke,
   faClock,
   faCompass,
+  faDownload,
   faGears,
   faGlasses,
   faGlobe,
@@ -146,6 +147,14 @@ export default function App() {
     };
   }, [onKey]);
 
+  function onClickDownload() {
+    if (i18n.language === "fr") {
+      window.location.href = "/Pascal-HERAUD-fr.pdf";
+    } else {
+      window.location.href = "/Pascal-HERAUD-en.pdf";
+    }
+  }
+
   function Map() {
     if (displayMap) {
       return (
@@ -176,6 +185,13 @@ export default function App() {
           <div className={"tools" + (displayBurger ? " visible" : "")}>
             <div className="tools-list">
               <div className="tools-group">
+                <div
+                  className="tool"
+                  onClick={onClickDownload}
+                  title={t("Télécharger")}
+                >
+                  <FontAwesomeIcon icon={faDownload} className="icon" />
+                </div>
                 <div
                   className="tool"
                   onClick={() => window.print()}

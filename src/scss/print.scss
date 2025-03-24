@@ -54,7 +54,7 @@
             .about-me {
                 background-color: white;
                 border: 3px solid grey;
-                break-inside: avoid-page;
+                break-inside: avoid;
                 padding: 0.5rem 1rem 0.5rem 1rem;
 
                 .sections {
@@ -80,7 +80,7 @@
                     .mission,
                     .occupation {
                         .header {
-                            break-inside: avoid-page;
+                            break-inside: avoid;
                         }
                     }
                 }
