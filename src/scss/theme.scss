@@ -1,0 +1,47 @@
+.my-resume {
+    @media screen {
+        &.dark-mode {
+            --background-color: rgb(0, 0, 0);
+            --background-color-invert: white;
+            --background-color-light-basic: 31, 28, 28;
+            --top-bg-color: var(--background-color);
+            --color: white;
+            --color-light: #AAAAAA;
+            font-family: 'Esteban';
+        }
+
+        &.geek-mode {
+            --background-color: black;
+            --background-color-invert: white;
+            --background-color-light-basic: 0, 0, 0;
+            --top-bg-color: var(--background-color);
+            --color: #41FF00;
+            --color-light: green;
+            font-family: "Fira Code";
+        }
+    }
+
+    &.sun-mode {
+        --background-color: white;
+        --background-color-invert: black;
+        --background-color-light-basic: 221, 221, 221;
+        --top-bg-color: #EEEEEE;
+        --color: black;
+        --color-light: grey;
+        font-family: 'Esteban';
+
+        .content {
+            .main {
+                background-color: white;
+            }
+        }
+    }
+
+    & {
+        --background-color-light: rgb(var(--background-color-light-basic));
+    }
+
+    &.fixed-mode {
+        overflow: hidden;
+    }
+}

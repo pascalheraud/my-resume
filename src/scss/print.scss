@@ -1,0 +1,92 @@
+@use 'variables' as vars;
+
+@media print {
+
+    .my-resume {
+        margin: 0px !important;
+
+        .top {
+            background-color: white;
+            border-radius: 0;
+            flex-direction: row;
+            align-items: center;
+
+            .photo {
+                margin-top: 0.5rem;
+            }
+
+            .section {
+                .name {
+                    flex-direction: row;
+                    justify-content: center;
+
+                    div {
+                        margin: 0 0.5rem;
+                    }
+                }
+
+                &.job {
+                    font-size: 2rem;
+                    justify-content: center;
+                    padding: 0 0 0 2rem;
+                }
+            }
+
+            .tools {
+                display: none !important;
+            }
+        }
+
+        .box-link {
+            display: none;
+        }
+
+
+        .content {
+
+            .about-me .technologies div div,
+            .main .experiences .occupation .mission .technologies>div {
+                border-radius: 1rem;
+                border: 1px solid black;
+                background-color: white;
+            }
+
+            .about-me {
+                background-color: white;
+                border: 3px solid grey;
+                break-inside: avoid-page;
+                padding: 0.5rem 1rem 0.5rem 1rem;
+
+                .sections {
+                    gap: 0;
+
+                    .section {
+                        margin: 1em 0 0 0;
+                    }
+                }
+
+            }
+
+            .main {
+                .experiences {
+                    break-before: always;
+
+                    .occupation {
+                        &:not(:first-child) {
+                            break-before: always;
+                        }
+                    }
+
+                    .mission,
+                    .occupation {
+                        .header {
+                            break-inside: avoid-page;
+                        }
+                    }
+                }
+
+            }
+
+        }
+    }
+}

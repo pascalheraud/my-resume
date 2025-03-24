@@ -1,13 +1,13 @@
 @use 'mixins';
-
-$mobile-bp: 660px;
-$tablet-bp: 1300px;
+@use 'variables' as vars;
 
 // Responsiveness common to mobile & tablets
-@media screen and (max-width: $tablet-bp) {
+@media screen and (max-width: vars.$tablet-bp),
+print {
     .my-resume {
         .top {
             border-radius: 1rem;
+
         }
 
         .content {
@@ -17,17 +17,18 @@ $tablet-bp: 1300px;
 
             .about-me {
                 border-radius: 1rem;
-                
+
                 .item {
                     text-wrap: nowrap;
                 }
-                
+
                 .sections {
                     display: flex;
                     flex-wrap: wrap;
                     flex-direction: row;
                     justify-content: space-between;
                     gap: 1rem;
+
                 }
 
                 .technologies .techs {
@@ -40,16 +41,34 @@ $tablet-bp: 1300px;
     }
 }
 
-@media screen and (max-width: $mobile-bp) {
+@media screen and (max-width: vars.$mobile-bp),
+print {
     .my-resume {
         .content {
             flex-direction: column;
 
             .main {
                 margin: 1em 0 0 0;
+
+                .occupation .title {
+                    flex-direction: column;
+                }
+            }
+
+            .about-me {
+                .sections {
+                    .map-container {
+                        padding:0.5rem;
+                        .banner {
+                            top: 0.5rem;
+                            right: 0.5rem;
+                        }
+                    }
+
+                }
             }
         }
-
+        
         .top {
             margin-bottom: 1rem;
 
@@ -113,7 +132,7 @@ $tablet-bp: 1300px;
     }
 }
 
-@media screen and (min-width: ($mobile-bp + 1px)) and (max-width: $tablet-bp) {
+@media screen and (min-width: (vars.$mobile-bp + 1px)) and (max-width: vars.$tablet-bp) {
     .my-resume {
         .content {
             flex-direction: column;
@@ -151,7 +170,7 @@ $tablet-bp: 1300px;
     }
 }
 
-@media screen and (min-width: ($tablet-bp + 1px)) {
+@media screen and (min-width: (vars.$tablet-bp + 1px)) {
     .container {
         max-width: 1200px;
 
