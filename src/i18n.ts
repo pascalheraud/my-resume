@@ -22,8 +22,8 @@ const resources = {
   },
   en: {
     translation: {
-      ans_one: "{{count}} year",
-      ans_other: "{{count}} years",
+      ans_one: "{{count}} yr",
+      ans_other: "{{count}} yrs",
       ans_en_one: "{{count}} year in {{year}}",
       ans_en_other: "{{count}} years in {{year}}",
       mois_one: "{{count}} month",
@@ -35,7 +35,7 @@ const resources = {
       jours_en_one: "{{count}} day in {{year}}",
       jours_en_other: "{{count}} days in {{year}}",
       Formation: "Education",
-      "BAC E": "French baccalauréat",
+      "BAC E": "Baccalauréat",
       "DEA Informatique": "Master's degree in Computer Science",
       Français: "French",
       Anglais: "English",
@@ -193,6 +193,7 @@ const resources = {
         "Development of a conceptual graph manipulation library",
       "Développement d'interfaces graphiques":
         "Development of graphical interfaces",
+      Télécharger: "Download",
     },
   },
 };
