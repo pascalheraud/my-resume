@@ -11,6 +11,7 @@ import {
   faCompass,
   faGears,
   faGlasses,
+  faGlobe,
   faGraduationCap,
   faHandHoldingHand,
   faList,
@@ -20,6 +21,7 @@ import {
   faMusic,
   faPersonCircleQuestion,
   faPersonWalking,
+  faPrint,
   faSkullCrossbones,
   faSquareCaretRight,
   faSquareUpRight,
@@ -165,7 +167,7 @@ export default function App() {
       <div className="top">
         <div className="section">
           <div className="photo">
-            <img src="./pascal-heraud.png"></img>
+            <img src="./pascal-heraud.jpg"></img>
           </div>
           <div className="name">
             <div className="first">Pascal</div>
@@ -176,8 +178,17 @@ export default function App() {
               <div className="tools-group">
                 <div
                   className="tool"
+                  onClick={() => window.print()}
+                  title={t("Imprimer (Raccourci : Ctrl-P)")}
+                >
+                  <FontAwesomeIcon icon={faPrint} className="icon" />
+                </div>
+              </div>
+              <div className="tools-group">
+                <div
+                  className="tool"
                   onClick={onClickSmaller}
-                  title={t("Diminuer la police ( Raccourci : - )")}
+                  title={t("Diminuer la police (Raccourci : -)")}
                 >
                   <FontAwesomeIcon
                     icon={faMagnifyingGlassMinus}
@@ -187,7 +198,7 @@ export default function App() {
                 <div
                   className="tool"
                   onClick={onClickBigger}
-                  title={t("Aggrandir la police ( Raccourci : +)")}
+                  title={t("Agrandir la police (Raccourci : +)")}
                 >
                   <FontAwesomeIcon
                     icon={faMagnifyingGlassPlus}
@@ -199,7 +210,7 @@ export default function App() {
                 <div
                   className="tool"
                   onClick={() => setMode("geek")}
-                  title={t("Mode Geek ( Raccourci : G )")}
+                  title={t("Mode Geek (Raccourci : G)")}
                 >
                   <FontAwesomeIcon
                     icon={faGlasses}
@@ -209,7 +220,7 @@ export default function App() {
                 <div
                   className="tool"
                   onClick={() => setMode("dark")}
-                  title={t("Mode Sombre ( Raccourci : D )")}
+                  title={t("Mode Sombre (Raccourci : D)")}
                 >
                   <FontAwesomeIcon
                     icon={faCircleHalfStroke}
@@ -219,7 +230,7 @@ export default function App() {
                 <div
                   className="tool"
                   onClick={() => setMode("sun")}
-                  title={t("Mode Clair ( Raccourci : L )")}
+                  title={t("Mode Clair (Raccourci : L)")}
                 >
                   <FontAwesomeIcon
                     icon={faSun}
@@ -236,7 +247,7 @@ export default function App() {
                       i18n.language === "fr",
                       "selected"
                     )}
-                    title={t("Ce CV en Français ( Raccourci : F )")}
+                    title={t("Ce CV en Français (Raccourci : F)")}
                   />
                 </div>
                 <div className="tool" onClick={onClickEnglish}>
@@ -247,7 +258,7 @@ export default function App() {
                       i18n.language === "en",
                       "selected"
                     )}
-                    title={t("Ce CV en Anglais ( Raccourci : E )")}
+                    title={t("Ce CV en Anglais (Raccourci : E)")}
                   />
                 </div>
               </div>
@@ -298,6 +309,11 @@ export default function App() {
               Pontcharra, France
             </Item>
             <Map />
+            <Item className="social" icon={faGlobe}>
+              <a href="https://heraud.ovh" target="_blank">
+                https://heraud.ovh
+              </a>
+            </Item>
             <Item className="social" icon={faLinkedin}>
               <a
                 href="https://www.linkedin.com/in/pascal-heraud"
@@ -322,11 +338,10 @@ export default function App() {
           </div>
           <div className="section">
             <div className="title">{t("Formation")}</div>
-            <Item className="" icon={faGraduationCap}>
-              BAC E (1989)
-            </Item>
-            <Item className="" icon={faGraduationCap}>
-              DEA Informatique (1995)
+            <Item icon={faGraduationCap}>{t("BAC E")} (1989)</Item>
+            <Item icon={faGraduationCap}>{t("DEA Informatique")} (1995)</Item>
+            <Item icon={faGraduationCap}>
+              {t("Stages en micro électronique (FPGAs)")}
             </Item>
           </div>
           <div className="section">
@@ -343,7 +358,7 @@ export default function App() {
               {t("Français")} (C2)
             </Item>
             <Item
-              image={fr}
+              image={en}
               className={dynamicClass(
                 "language selectable",
                 i18n.language === "en",
@@ -375,27 +390,33 @@ export default function App() {
         <div className="section technologies">
           <div className="title">{t("Compétences techniques")}</div>
           <div className="techs">
-            <div className="backend">Java (30 ans)</div>
-            <div className="backend">Postgresql (15 ans)</div>
-            <div className="backend">Postgis (15 ans)</div>
-            <div className="backend">Oracle (5 ans)</div>
-            <div className="backend">Tomcat (10 ans)</div>
-            <div className="backend">Hibernate(10 ans)</div>
-            <div className="backend">Spring MVC (15 ans)</div>
-            <div className="backend">Junit (20 ans)</div>
-            <div className="build">Maven (20 ans)</div>
-            <div className="build">Docker (10 ans)</div>
-            <div className="build">Gitlab (10 ans)</div>
-            <div className="build">Git (10 ans)</div>
-            <div className="frontend">Typescript (5 ans)</div>
-            <div className="frontend">Selenium (20 ans)</div>
-            <div className="frontend">Vue.js (7 ans)</div>
-            <div className="frontend">Capacitor (1 an)</div>
-            <div className="frontend">React (2 mois)</div>
-            <div className="frontend">Angular (2 mois)</div>
-            <div className="devops">Zabbix (15 ans)</div>
-            <div className="devops">Ansible (15 ans)</div>
-            <div className="devops">Debian (15 ans)</div>
+            <div className="backend">Java ({t("ans", { count: 30 })})</div>
+            <div className="backend">
+              Postgresql ({t("ans", { count: 15 })})
+            </div>
+            <div className="backend">Postgis ({t("ans", { count: 15 })})</div>
+            <div className="backend">Oracle ({t("ans", { count: 5 })})</div>
+            <div className="backend">Tomcat ({t("ans", { count: 10 })})</div>
+            <div className="backend">Hibernate ({t("ans", { count: 10 })})</div>
+            <div className="backend">
+              Spring MVC ({t("ans", { count: 15 })})
+            </div>
+            <div className="backend">Junit ({t("ans", { count: 20 })})</div>
+            <div className="build">Maven ({t("ans", { count: 20 })})</div>
+            <div className="build">Docker ({t("ans", { count: 10 })})</div>
+            <div className="build">Gitlab ({t("ans", { count: 10 })})</div>
+            <div className="build">Git ({t("ans", { count: 10 })})</div>
+            <div className="frontend">
+              Typescript ({t("ans", { count: 5 })})
+            </div>
+            <div className="frontend">Selenium ({t("ans", { count: 15 })})</div>
+            <div className="frontend">Vue.js ({t("ans", { count: 7 })})</div>
+            <div className="frontend">Capacitor ({t("ans", { count: 1 })})</div>
+            <div className="frontend">React ({t("mois", { count: 2 })})</div>
+            <div className="frontend">Angular ({t("mois", { count: 2 })})</div>
+            <div className="devops">Zabbix ({t("ans", { count: 15 })})</div>
+            <div className="devops">Ansible ({t("ans", { count: 15 })})</div>
+            <div className="devops">Debian ({t("ans", { count: 15 })})</div>
           </div>
         </div>
       </div>
@@ -421,7 +442,7 @@ export default function App() {
             </div>
             <div className="duration">
               <FontAwesomeIcon icon={faClock} className="icon" />
-              11 ans
+              {t("ans", { count: 11 })}
             </div>
           </div>
         </div>
@@ -434,13 +455,108 @@ export default function App() {
     );
   }
 
+  function Caesar() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t(
+              "Technicien de mainenance / Développeur progiciel de gestion d'aggrégats"
+            )}
+            <div className="duration">
+              <FontAwesomeIcon icon={faClock} className="icon" />
+              {t("ans", { count: 2 })}
+            </div>
+          </div>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>{t("Maintenance et installation sur site ")}</li>
+            <li>{t("Développement")}</li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="backend">Windev</div>
+        </div>
+      </div>
+    );
+  }
+
+  function SMA() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t("R&D projet de recherche d'un Système Multi Agents")}
+            <div className="duration">
+              <FontAwesomeIcon icon={faClock} className="icon" />
+              {t("ans", { count: 2 })}
+            </div>
+          </div>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t(
+                "Développement d'une librairie de manipulation de graphes conceptuels"
+              )}
+            </li>
+            <li>{t("Développement d'interfaces graphiques")}</li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="backend">Smalltalk</div>
+          <div className="backend">VisualWorks</div>
+          <div className="db">Oracle</div>
+        </div>
+      </div>
+    );
+  }
+
+  function Aegis() {
+    return (
+      <div className="occupation">
+        <div className="header">
+          <div className="company">Aegis</div>
+          <div className="job">
+            {t(" Technicien maintenance / Développeur")}
+          </div>
+          <div className="infos">
+            <div className="location">
+              <FontAwesomeIcon icon={faLocationDot} className="icon" />
+              Le Bourget du Lac
+            </div>
+            <div className="period">
+              <FontAwesomeIcon icon={faCalendar} className="icon" />
+              1996-2000
+            </div>
+            <div className="duration">
+              <FontAwesomeIcon icon={faClock} className="icon" />
+              {t("ans", { count: 4 })}
+            </div>
+          </div>
+        </div>
+        <div className="missions">
+          <Caesar />
+          <SMA />
+        </div>
+      </div>
+    );
+  }
+
   function ObjetDirect() {
     return (
       <div className="occupation">
         <div className="header">
           <div className="company">
             Objet Direct / Viseo{" "}
-            <a href="https://www.viseo.com/fr/" target="_blank">
+            <a
+              href="https://www.viseo.com/fr/"
+              target="_blank"
+              className="box-link"
+            >
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
             </a>{" "}
           </div>
@@ -458,7 +574,7 @@ export default function App() {
             </div>
             <div className="duration">
               <FontAwesomeIcon icon={faClock} className="icon" />
-              11 ans
+              {t("ans", { count: 11 })}
             </div>
           </div>
         </div>
@@ -477,11 +593,13 @@ export default function App() {
     return (
       <div className="mission">
         <div className="title">
-          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
-          {t("Architecture et déveveloppement du dossier client")}
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t("Architecture et développement du dossier client")}
+          </div>
           <div className="duration">
             <FontAwesomeIcon icon={faClock} className="icon" />
-            18 mois en 2000
+            {t("mois_en", { count: 18, year: 2000 })}
           </div>
         </div>
         <div className="company">
@@ -489,6 +607,7 @@ export default function App() {
           <a
             href="https://www.linkedin.com/company/credit-agricole-technologies-et-services/?originalSubdomain=fr"
             target="_blank"
+            className="box-link"
           >
             <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
           </a>
@@ -501,7 +620,7 @@ export default function App() {
           <ul>
             <li>
               {t(
-                "Premiers développements d'une archicture multi couche conçue pour la refonte d'une application web"
+                "Premiers développements d'une architecture multi-couches conçue pour la refonte d'une application web"
               )}
             </li>
             <li>{t("Prototypage et expérimentation")}</li>
@@ -524,16 +643,18 @@ export default function App() {
     return (
       <div className="mission">
         <div className="title">
-          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
-          {t("Développement d'un site de gestion de licences")}
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t("Développement d'un site de gestion de licences")}
+          </div>
           <div className="duration">
             <FontAwesomeIcon icon={faClock} className="icon" />
-            10 mois en 2001
+            {t("ans_en", { count: 10, year: 2001 })}
           </div>
         </div>
         <div className="company">
           Hewlett Packard
-          <a href="https://www.hpe.com/" target="_blank">
+          <a href="https://www.hpe.com/" target="_blank" className="box-link">
             <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
           </a>
           <div className="location">
@@ -543,13 +664,8 @@ export default function App() {
         </div>
         <div className="tasks">
           <ul>
-            <li>
-              {t(
-                "Premiers développements d'une archicture multi couche conçue pour la refonte d'une application web"
-              )}
-            </li>
-            <li>{t("Prototypage et expérimentation")}</li>
-            <li>{t("Interface avec les services métiers Cobol")}</li>
+            <li>{t("Développement de l'application web")}</li>
+            <li>{t("Design et développement d'un moteur CORBA en C++")}</li>
           </ul>
         </div>
         <div className="technologies">
@@ -557,7 +673,7 @@ export default function App() {
           <div className="backend">Java</div>
           <div className="backend">Struts</div>
           <div className="backend">C++</div>
-          <div className="backend">Corba</div>
+          <div className="backend">CORBA</div>
           <div className="build">CVS</div>
           <div className="frontend">CSS</div>
           <div className="frontend">Javascript</div>
@@ -571,15 +687,18 @@ export default function App() {
     return (
       <div className="mission">
         <div className="title">
-          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
-          {t("Développement du nouveau moteur d'indexation d'offres")}
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t("Développement du nouveau moteur d'indexation d'offres")}
+          </div>
           <div className="duration">
-            <FontAwesomeIcon icon={faClock} className="icon" />3 ans en 2003
+            <FontAwesomeIcon icon={faClock} className="icon" />
+            {t("ans_en", { count: 3, year: 2003 })}
           </div>
         </div>
         <div className="company">
           Kelkoo
-          <a href="https://www.kelkoo.fr/" target="_blank">
+          <a href="https://www.kelkoo.fr/" target="_blank" className="box-link">
             <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
           </a>
           <div className="location">
@@ -609,15 +728,18 @@ export default function App() {
     return (
       <div className="mission">
         <div className="title">
-          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
-          {t("Création et déploiements des packages de monitoring")}
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t("Création et déploiements des packages de monitoring")}
+          </div>
           <div className="duration">
-            <FontAwesomeIcon icon={faClock} className="icon" />1 an en 2010
+            <FontAwesomeIcon icon={faClock} className="icon" />
+            {t("ans_en", { count: 1, year: 2010 })}
           </div>
         </div>
         <div className="company">
           Kelkoo
-          <a href="https://www.kelkoo.fr/" target="_blank">
+          <a href="https://www.kelkoo.fr/" target="_blank" className="box-link">
             <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
           </a>
           <div className="location">
@@ -648,12 +770,15 @@ export default function App() {
     return (
       <div className="mission">
         <div className="title">
-          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
-          {t(
-            "Référent technique pour l'Architecture et développements d'applications web"
-          )}
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t(
+              "Référent technique pour l'Architecture et développements d'applications web"
+            )}
+          </div>
           <div className="duration">
-            <FontAwesomeIcon icon={faClock} className="icon" />3 ans en 2006
+            <FontAwesomeIcon icon={faClock} className="icon" />
+            {t("ans_en", { count: 3, year: 2006 })}
           </div>
         </div>
         <div className="company">
@@ -701,11 +826,13 @@ export default function App() {
     return (
       <div className="mission">
         <div className="title">
-          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
-          {t("Moteur de recherche de traces GPS pour le VTT")}
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t("Moteur de recherche de traces GPS pour le VTT")}
+          </div>
           <div className="duration">
             <FontAwesomeIcon icon={faClock} className="icon" />
-            10 ans en 2010
+            {t("ans_en", { count: 10, year: 2010 })}
           </div>
         </div>
         <div className="company">
@@ -722,7 +849,7 @@ export default function App() {
           <ul>
             <li>
               {t(
-                "Robot d'indexation des traces GPS sur les principaux sites de partage"
+                "Robot d'indexation des traces GPS sur les principaux sites de partage de traces"
               )}
             </li>
             <li>
@@ -749,14 +876,21 @@ export default function App() {
     return (
       <div className="mission">
         <div className="title">
-          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
-          {t("Outil d'aide à la rédaction des rapports de Graphothérapie")}
-          <div className="duration">
-            <FontAwesomeIcon icon={faClock} className="icon" />1 an en 2020
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t("Outil d'aide à la rédaction des rapports de Graphothérapie")}
+            <a
+              href="https://github.com/pascalheraud/diaps"
+              target="_blank"
+              className="box-link"
+            >
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </a>
           </div>
-          <a href="https://github.com/pascalheraud/diaps" target="_blank" className="box-link">
-            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-          </a>
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />
+            {t("ans_en", { count: 1, year: 2020 })}
+          </div>
         </div>
         <div className="tasks">
           <ul>
@@ -767,7 +901,7 @@ export default function App() {
             </li>
             <li>
               {t(
-                "Recueill des besoins et conception de l'interface du prototype"
+                "Recueil des besoins et conception de l'interface du prototype"
               )}
             </li>
             <li>
@@ -793,43 +927,216 @@ export default function App() {
     );
   }
 
+  function GrimpeRadar() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t("Moteur de recherche de salles d'escalade")}
+            <a
+              href="https://pascalheraud.github.io/grimpe-radar/"
+              target="_blank"
+              className="box-link"
+            >
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </a>
+            <a
+              href="https://github.com/pascalheraud/grimpe-radar/"
+              target="_blank"
+              className="box-link"
+            >
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </a>
+          </div>
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />{" "}
+            {t("ans_en", { count: 1, year: 2025 })}
+          </div>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t(
+                "Création d'une application sans base de données pour se former sur Angular"
+              )}
+            </li>
+            <li>
+              {t(
+                "Utilisation d'un service open data des équipements sportifs de France"
+              )}
+            </li>
+            <li>
+              {t(
+                "Utilisation d'un service d'autocomplétion d'adresse en France (BAN)"
+              )}
+            </li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="frontend">Typescript</div>
+          <div className="frontend">Angular</div>
+        </div>
+      </div>
+    );
+  }
+
+  function BanAutocompleteNG() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t(
+              "Composant de saisie d'adresse par autocomplétion sur les adresses françaises fournies par la BAN"
+            )}
+            <a
+              href="https://github.com/pascalheraud/ban-autocomplete-ng/"
+              target="_blank"
+              className="box-link"
+            >
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </a>
+          </div>
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />
+            {t("semaines_en", { count: 1, year: 2025 })}
+          </div>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t(
+                "Développement, test, documentation et publication du composant sur npmjs"
+              )}
+            </li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="frontend">Typescript</div>
+          <div className="frontend">Angular</div>
+        </div>
+      </div>
+    );
+  }
+
+  function DataBuilder() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t("Composant de manipulation de dates")}
+            <a
+              href="https://github.com/LaRoueVerte/datebuilder"
+              target="_blank"
+              className="box-link"
+            >
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </a>
+          </div>
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />
+            {t("jours_en", { count: 2, year: 2025 })}
+          </div>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t("Développement, test, documentation et release du composant")}
+            </li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="backend">Java</div>
+        </div>
+      </div>
+    );
+  }
+
+  function ElectricytyMap() {
+    return (
+      <div className="mission">
+        <div className="job">
+          <div className="title">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t("Réalisation d'un parseur de données d'énergie")}
+            <a
+              href="https://github.com/electricitymaps/electricitymaps-contrib"
+              target="_blank"
+              className="box-link"
+            >
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </a>
+            <div className="duration">
+              <FontAwesomeIcon icon={faClock} className="icon" />
+              {t("jours_en", { count: 2, year: 2018 })}
+            </div>
+          </div>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t(
+                "Réalisation d'un parser de données fournies par un producteur d'énergie pour les intégrer dans le site Electricity Maps"
+              )}
+              <a
+                href="https://app.electricitymaps.com"
+                target="_blank"
+                className="box-link"
+              >
+                <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="backend">Java</div>
+        </div>
+      </div>
+    );
+  }
+
   function GZ() {
     return (
       <div className="mission">
         <div className="title">
-          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
-          {t("Développement de sites de covoiturage en marque blanche")}{" "}
-          <div className="duration">
-            <FontAwesomeIcon icon={faClock} className="icon" />6 ans
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t("Développement de sites de covoiturage en marque blanche")}{" "}
+            <a
+              href="https://www.laroueverte.com"
+              target="_blank"
+              className="box-link"
+            >
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </a>
+            <a
+              href="http://web.archive.org/web/20250309010341/http://laroueverte.com/"
+              target="_blank"
+              className="box-link"
+            >
+              <FontAwesomeIcon icon={faSquareUpRight} />
+            </a>
+            <a
+              href="https://www.covoiturage76.net/"
+              target="_blank"
+              className="box-link"
+            >
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </a>
+            <a
+              href="http://web.archive.org/web/20220408151649/https://www.covoiturage76.net/"
+              target="_blank"
+              className="box-link"
+            >
+              <FontAwesomeIcon icon={faSquareUpRight} />
+            </a>
           </div>
-          <a
-            href="https://www.laroueverte.com"
-            target="_blank"
-            className="box-link"
-          >
-            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-          </a>
-          <a
-            href="http://web.archive.org/web/20250309010341/http://laroueverte.com/"
-            target="_blank"
-            className="box-link"
-          >
-            <FontAwesomeIcon icon={faSquareUpRight} />
-          </a>
-          <a
-            href="https://www.covoiturage76.net/"
-            target="_blank"
-            className="box-link"
-          >
-            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-          </a>
-          <a
-            href="http://web.archive.org/web/20220408151649/https://www.covoiturage76.net/"
-            target="_blank"
-            className="box-link"
-          >
-            <FontAwesomeIcon icon={faSquareUpRight} />
-          </a>
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />
+            {t("ans", { count: 6 })}
+          </div>
         </div>
         <div className="tasks">
           <ul>
@@ -837,7 +1144,7 @@ export default function App() {
               {t("Mise en place de l'architecture logicielle et matérielle")}
             </li>
             <li>{t("Architecture et conception de l'application")}</li>
-            <li>{t("Migration postgresql")}</li>
+            <li>{t("Migration postgreSQL depuis MySQL")}</li>
             <li>{t("Conception d'un mécanisme de marque blanche")}</li>
             <li>
               {t(
@@ -846,7 +1153,7 @@ export default function App() {
             </li>
             <li>
               {t(
-                "Développement et conception d'un Dealer Locator en Pur Javascript"
+                "Développement et conception d'un Dealer Locator en pur Javascript"
               )}
             </li>
             <li>
@@ -856,7 +1163,7 @@ export default function App() {
             </li>
             <li>
               {t(
-                "Développement d'un site de covoiturage pour le CNFPT. Intégration automatique des données des formations."
+                "Développement d'un site de covoiturage pour le CNFPT. Intégration automatique des données des sessions"
               )}
             </li>
             <li>{t("Fourniture d'APIs de covoiturage aux partenaires")}</li>
@@ -895,20 +1202,23 @@ export default function App() {
     return (
       <div className="mission">
         <div className="title">
-          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
-          {t("Développement d'un site de covoiturage de lignes illicov.fr")}
-          <a href="https://illicov.fr" target="_blank" className="box-link">
-            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-          </a>
-          <a
-            href="http://web.archive.org/web/20240130164747/https://illicov.fr/"
-            target="_blank"
-            className="box-link"
-          >
-            <FontAwesomeIcon icon={faSquareUpRight} />
-          </a>
-          <div className="duration">
-            <FontAwesomeIcon icon={faClock} className="icon" />3 ans
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t("Développement d'un site de covoiturage de lignes illicov.fr")}
+            <a href="https://illicov.fr" target="_blank" className="box-link">
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </a>
+            <a
+              href="http://web.archive.org/web/20240130164747/https://illicov.fr/"
+              target="_blank"
+              className="box-link"
+            >
+              <FontAwesomeIcon icon={faSquareUpRight} />
+            </a>
+            <div className="duration">
+              <FontAwesomeIcon icon={faClock} className="icon" />
+              {t("ans", { count: 3 })}
+            </div>
           </div>
         </div>
         <div className="tasks">
@@ -957,22 +1267,25 @@ export default function App() {
     return (
       <div className="mission">
         <div className="title">
-          <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
-          {t(
-            "Modernisation et extension d'un site de covoiturage de lignes illicov.fr"
-          )}{" "}
-          <a href="https://illicov.fr" className="box-link" target="_blank">
-            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-          </a>
-          <a
-            href="http://web.archive.org/web/20240130164747/https://illicov.fr/"
-            target="_blank"
-            className="box-link"
-          >
-            <FontAwesomeIcon icon={faSquareUpRight} />
-          </a>
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t(
+              "Modernisation et extension d'un site de covoiturage de lignes illicov.fr"
+            )}{" "}
+            <a href="https://illicov.fr" className="box-link" target="_blank">
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </a>
+            <a
+              href="http://web.archive.org/web/20240130164747/https://illicov.fr/"
+              target="_blank"
+              className="box-link"
+            >
+              <FontAwesomeIcon icon={faSquareUpRight} />
+            </a>
+          </div>
           <div className="duration">
-            <FontAwesomeIcon icon={faClock} className="icon" />5 ans
+            <FontAwesomeIcon icon={faClock} className="icon" />
+            {t("ans", { count: 5 })}
           </div>
         </div>
         <div className="tasks">
@@ -1020,12 +1333,18 @@ export default function App() {
       <div className="occupation">
         <div className="header">
           <div className="company">
-            Parce que l'informatique est une passion mais aussi pour me former
+            {t(
+              "L'informatique étant une passion, il est essentiel pour moi d'explorer de nouvelles technologies et de participer au développement du logiciel libre"
+            )}
           </div>
         </div>
         <div className="missions">
           <RandoVTT />
           <Diaps />
+          <GrimpeRadar />
+          <BanAutocompleteNG />
+          <DataBuilder />
+          <ElectricytyMap />
         </div>
       </div>
     );
@@ -1054,6 +1373,7 @@ export default function App() {
                 <div className="occupations">
                   <LaRoueVerte />
                   <ObjetDirect />
+                  <Aegis />
                 </div>
               </div>
               <div className="experiences personal">
