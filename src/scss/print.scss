@@ -53,12 +53,12 @@
 
             .about-me {
                 background-color: white;
-                border: 3px solid grey;
-                break-inside: avoid;
+                border: none;
                 padding: 0.5rem 1rem 0.5rem 1rem;
-
+                
                 .sections {
                     gap: 0;
+                    break-inside: avoid;
 
                     .section {
                         margin: 1em 0 0 0;

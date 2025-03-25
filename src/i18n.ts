@@ -172,7 +172,6 @@ const resources = {
       "Réalisation d'un parser de données fournies par un producteur d'énergie pour les intégrer dans le site Electricity Maps":
         "Development of a data parser for energy producer data integration into Electricity Maps",
       Intérêts: "Interests",
-      "Développement de l'application web": "Web application development",
       "Design et développement d'un moteur CORBA en C++":
         "Design and development of a CORBA engine in C++",
       "L'informatique étant une passion, il est essentiel pour moi d'explorer de nouvelles technologies et de participer au développement du logiciel libre":
@@ -194,6 +193,18 @@ const resources = {
       "Développement d'interfaces graphiques":
         "Development of graphical interfaces",
       Télécharger: "Download",
+      Perspectives: "Perspectives",
+      Blockchain: "Blockchain",
+      "Crypto monnaies": "Cryptocurrencies",
+      "Réseaux de neurones / IA": "Neural networks / AI",
+      "Secteur des énergies": "Energy sector",
+      "Développement durable": "Sustainable development",
+      "Innovation technologique": "Technological innovation",
+      Cybersécurité: "Cybersecurity",
+      "Fullstack (Java et/ou JS)": "Fullstack (Java and/or JS)",
+      Formateur: "Trainer",
+      "Développement de l'application web": "Web application development",
+      "./Pascal-HERAUD-fr.pdf": "./Pascal-HERAUD-en.pdf",
     },
   },
 };

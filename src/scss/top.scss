@@ -18,6 +18,7 @@
           border: 3px solid var(--color-light);
           height: 7em;
           border-radius: 7em;
+
           &:hover {
             content: url('../avatar-boulet.jpg');
           }
@@ -53,6 +54,16 @@
 
             .tool {
               padding: 0 0.1em 0 0.1em;
+
+              a {
+
+                &,
+                &:hover,
+                &:visited,
+                &:active {
+                  color: var(--color);
+                }
+              }
 
               .icon {
                 cursor: pointer;
