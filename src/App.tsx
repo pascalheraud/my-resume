@@ -147,14 +147,6 @@ export default function App() {
     };
   }, [onKey]);
 
-  function onClickDownload() {
-    if (i18n.language === "fr") {
-      window.location.href = "/Pascal-HERAUD-fr.pdf";
-    } else {
-      window.location.href = "/Pascal-HERAUD-en.pdf";
-    }
-  }
-
   function Map() {
     if (displayMap) {
       return (
@@ -185,12 +177,13 @@ export default function App() {
           <div className={"tools" + (displayBurger ? " visible" : "")}>
             <div className="tools-list">
               <div className="tools-group">
-                <div
-                  className="tool"
-                  onClick={onClickDownload}
-                  title={t("Télécharger")}
-                >
-                  <FontAwesomeIcon icon={faDownload} className="icon" />
+                <div className="tool">
+                  <a
+                    href={t("./Pascal-HERAUD-fr.pdf")}
+                    title={t("Télécharger")}
+                  >
+                    <FontAwesomeIcon icon={faDownload} className="icon" />
+                  </a>
                 </div>
                 <div
                   className="tool"
@@ -198,6 +191,17 @@ export default function App() {
                   title={t("Imprimer (Raccourci : Ctrl-P)")}
                 >
                   <FontAwesomeIcon icon={faPrint} className="icon" />
+                </div>
+                <div
+                  className="tool"
+                  title={t("Imprimer (Raccourci : Ctrl-P)")}
+                >
+                  <a
+                    href="https://github.com/pascalheraud/my-resume"
+                    target="_blank"
+                  >
+                    <FontAwesomeIcon icon={faGithub} className="icon" />
+                  </a>
                 </div>
               </div>
               <div className="tools-group">
@@ -404,35 +408,59 @@ export default function App() {
           </div>
         </div>
         <div className="section technologies">
-          <div className="title">{t("Compétences techniques")}</div>
+          <div className="title">{t("Perspectives")}</div>
           <div className="techs">
-            <div className="backend">Java ({t("ans", { count: 30 })})</div>
-            <div className="backend">
-              Postgresql ({t("ans", { count: 15 })})
+            <div className="backend">{t("Fullstack (Java et/ou JS)")}</div>
+            <div className="backend">{t("Formateur")}</div>
+            <div className="backend">{t("Blockchain")}</div>
+            <div className="backend">{t("Crypto monnaies")}</div>
+            <div className="backend">{t("Réseaux de neurones / IA")}</div>
+            <div className="backend">{t("Secteur des énergies")}</div>
+            <div className="backend">{t("Développement durable")}</div>
+            <div className="backend">{t("Innovation technologique")}</div>
+            <div className="backend">{t("Cybersécurité")}</div>
+          </div>
+        </div>
+        <div className="sections">
+          <div className="section technologies">
+            <div className="title">{t("Compétences techniques")}</div>
+            <div className="techs">
+              <div className="backend">Java ({t("ans", { count: 30 })})</div>
+              <div className="backend">
+                Postgresql ({t("ans", { count: 15 })})
+              </div>
+              <div className="backend">Postgis ({t("ans", { count: 15 })})</div>
+              <div className="backend">Oracle ({t("ans", { count: 5 })})</div>
+              <div className="backend">Tomcat ({t("ans", { count: 10 })})</div>
+              <div className="backend">
+                Hibernate ({t("ans", { count: 10 })})
+              </div>
+              <div className="backend">
+                Spring MVC ({t("ans", { count: 15 })})
+              </div>
+              <div className="backend">Junit ({t("ans", { count: 20 })})</div>
+              <div className="build">Maven ({t("ans", { count: 20 })})</div>
+              <div className="build">Docker ({t("ans", { count: 10 })})</div>
+              <div className="build">Gitlab ({t("ans", { count: 10 })})</div>
+              <div className="build">Git ({t("ans", { count: 10 })})</div>
+              <div className="frontend">
+                Typescript ({t("ans", { count: 5 })})
+              </div>
+              <div className="frontend">
+                Selenium ({t("ans", { count: 15 })})
+              </div>
+              <div className="frontend">Vue.js ({t("ans", { count: 7 })})</div>
+              <div className="frontend">
+                Capacitor ({t("ans", { count: 1 })})
+              </div>
+              <div className="frontend">React ({t("mois", { count: 2 })})</div>
+              <div className="frontend">
+                Angular ({t("mois", { count: 2 })})
+              </div>
+              <div className="devops">Zabbix ({t("ans", { count: 15 })})</div>
+              <div className="devops">Ansible ({t("ans", { count: 15 })})</div>
+              <div className="devops">Debian ({t("ans", { count: 15 })})</div>
             </div>
-            <div className="backend">Postgis ({t("ans", { count: 15 })})</div>
-            <div className="backend">Oracle ({t("ans", { count: 5 })})</div>
-            <div className="backend">Tomcat ({t("ans", { count: 10 })})</div>
-            <div className="backend">Hibernate ({t("ans", { count: 10 })})</div>
-            <div className="backend">
-              Spring MVC ({t("ans", { count: 15 })})
-            </div>
-            <div className="backend">Junit ({t("ans", { count: 20 })})</div>
-            <div className="build">Maven ({t("ans", { count: 20 })})</div>
-            <div className="build">Docker ({t("ans", { count: 10 })})</div>
-            <div className="build">Gitlab ({t("ans", { count: 10 })})</div>
-            <div className="build">Git ({t("ans", { count: 10 })})</div>
-            <div className="frontend">
-              Typescript ({t("ans", { count: 5 })})
-            </div>
-            <div className="frontend">Selenium ({t("ans", { count: 15 })})</div>
-            <div className="frontend">Vue.js ({t("ans", { count: 7 })})</div>
-            <div className="frontend">Capacitor ({t("ans", { count: 1 })})</div>
-            <div className="frontend">React ({t("mois", { count: 2 })})</div>
-            <div className="frontend">Angular ({t("mois", { count: 2 })})</div>
-            <div className="devops">Zabbix ({t("ans", { count: 15 })})</div>
-            <div className="devops">Ansible ({t("ans", { count: 15 })})</div>
-            <div className="devops">Debian ({t("ans", { count: 15 })})</div>
           </div>
         </div>
       </div>
@@ -1107,7 +1135,7 @@ export default function App() {
           </ul>
         </div>
         <div className="technologies">
-          <div className="backend">Java</div>
+          <div className="backend">Python</div>
         </div>
       </div>
     );
