@@ -179,7 +179,7 @@ export default function App() {
               <div className="tools-group">
                 <div className="tool">
                   <a
-                    href={t("./Pascal-HERAUD-fr.pdf")}
+                    href={t("./2/Pascal-HERAUD-fr.pdf")}
                     title={t("Télécharger")}
                   >
                     <FontAwesomeIcon icon={faDownload} className="icon" />
@@ -194,7 +194,7 @@ export default function App() {
                 </div>
                 <div
                   className="tool"
-                  title={t("Imprimer (Raccourci : Ctrl-P)")}
+                  title={t("Code source sur GitHub")}
                 >
                   <a
                     href="https://github.com/pascalheraud/my-resume"
@@ -995,7 +995,7 @@ export default function App() {
           </div>
           <div className="duration">
             <FontAwesomeIcon icon={faClock} className="icon" />{" "}
-            {t("ans_en", { count: 1, year: 2025 })}
+            {t("jours_en", { count: 3, year: 2025 })}
           </div>
         </div>
         <div className="tasks">
