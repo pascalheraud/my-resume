@@ -204,7 +204,7 @@ const resources = {
       "Fullstack (Java et/ou JS)": "Fullstack (Java and/or JS)",
       Formateur: "Trainer",
       "Développement de l'application web": "Web application development",
-      "./2/Pascal-HERAUD-fr.pdf": "./2/Pascal-HERAUD-en.pdf",
+      "./3/Pascal-HERAUD-fr.pdf": "./3/Pascal-HERAUD-en.pdf",
       "Code source sur GitHub": "Source code on GitHub",
     },
   },
