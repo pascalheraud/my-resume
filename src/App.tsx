@@ -179,7 +179,7 @@ export default function App() {
               <div className="tools-group">
                 <div className="tool">
                   <a
-                    href={t("./2/Pascal-HERAUD-fr.pdf")}
+                    href={t("./3/Pascal-HERAUD-fr.pdf")}
                     title={t("Télécharger")}
                   >
                     <FontAwesomeIcon icon={faDownload} className="icon" />
@@ -693,7 +693,7 @@ export default function App() {
           </div>
           <div className="duration">
             <FontAwesomeIcon icon={faClock} className="icon" />
-            {t("ans_en", { count: 10, year: 2001 })}
+            {t("mois_en", { count: 10, year: 2001 })}
           </div>
         </div>
         <div className="company">
