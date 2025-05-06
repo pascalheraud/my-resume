@@ -453,7 +453,7 @@ export default function App() {
               <div className="frontend">
                 Capacitor ({t("ans", { count: 1 })})
               </div>
-              <div className="frontend">React ({t("mois", { count: 2 })})</div>
+              <div className="frontend">React ({t("mois", { count: 3 })})</div>
               <div className="frontend">
                 Angular ({t("mois", { count: 2 })})
               </div>
@@ -866,6 +866,55 @@ export default function App() {
     );
   }
 
+  function Auxiliaires() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t("Site de mise en relation avec des auxiliaires de vie")}
+          </div>
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />
+            {t("mois_en", { count: 1, year: 2025 })}
+          </div>
+        </div>
+        <div className="company">
+          Auxiliaires.fr
+          <a
+            href="https://auxiliaires.fr/"
+            target="_blank"
+            className="box-link"
+          >
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </a>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t(
+                "Conception / développement du site"
+              )}
+            </li>
+            <li>
+              {t(
+                "Référencement"
+              )}
+            </li>
+            <li>{t("Installation / déploiement sur serveur privé")}</li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="backend">Postgresql</div>
+          <div className="backend">Postgis</div>
+          <div className="backend">Java</div>
+          <div className="backend">Spring Boot</div>
+          <div className="frontend">React</div>
+          <div className="frontend">Typescript</div>
+        </div>
+      </div>
+    );
+  }
   function RandoVTT() {
     return (
       <div className="mission">
@@ -965,7 +1014,6 @@ export default function App() {
           <div className="backend">Doc4J</div>
           <div className="backend">Spring MVC</div>
           <div className="frontend">Typescript</div>
-          <div className="frontend">jQuery</div>
         </div>
       </div>
     );
@@ -1384,6 +1432,7 @@ export default function App() {
         </div>
         <div className="missions">
           <RandoVTT />
+          <Auxiliaires />
           <Diaps />
           <GrimpeRadar />
           <BanAutocompleteNG />
