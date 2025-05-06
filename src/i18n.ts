@@ -206,6 +206,10 @@ const resources = {
       "Développement de l'application web": "Web application development",
       "./3/Pascal-HERAUD-fr.pdf": "./3/Pascal-HERAUD-en.pdf",
       "Code source sur GitHub": "Source code on GitHub",
+      "Conception / développement du site":"Design / development",
+      "Référencement":"SEO",
+      "Installation / déploiement sur serveur privé":"Installation / deployment on a private server",
+      "Site de mise en relation avec des auxiliaires de vie":"Matching platform for home care assistants"
     },
   },
 };
