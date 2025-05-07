@@ -179,7 +179,7 @@ export default function App() {
               <div className="tools-group">
                 <div className="tool">
                   <a
-                    href={t("./3/Pascal-HERAUD-fr.pdf")}
+                    href={t("./4/Pascal-HERAUD-fr.pdf")}
                     title={t("Télécharger")}
                   >
                     <FontAwesomeIcon icon={faDownload} className="icon" />
