@@ -54,7 +54,7 @@ export default function App() {
     }
   }, [displayMap]);
 
-  function onclickBurger() {
+  function onClickBurger() {
     setDisplayBurger(!displayBurger);
   }
 
@@ -90,9 +90,9 @@ export default function App() {
   function dynamicClass(
     other: string,
     condition: boolean,
-    conditionnalClass: string
+    conditionalClass: string
   ): string {
-    return other + (condition ? " " + conditionnalClass : "");
+    return other + (condition ? " " + conditionalClass : "");
   }
 
   const changeLanguage = useCallback(
@@ -179,7 +179,7 @@ export default function App() {
               <div className="tools-group">
                 <div className="tool">
                   <a
-                    href={t("./5/Pascal-HERAUD-fr.pdf")}
+                    href={t("./X/Pascal-HERAUD.pdf")}
                     title={t("Télécharger")}
                   >
                     <FontAwesomeIcon icon={faDownload} className="icon" />
@@ -283,7 +283,7 @@ export default function App() {
                 </div>
               </div>
             </div>
-            <div className="burger" onClick={onclickBurger}>
+            <div className="burger" onClick={onClickBurger}>
               <FontAwesomeIcon icon={faBurger} />
             </div>
           </div>
@@ -430,7 +430,7 @@ export default function App() {
                 Postgresql ({t("ans", { count: 15 })})
               </div>
               <div className="backend">Postgis ({t("ans", { count: 15 })})</div>
-              <div className="backend">Oracle ({t("ans", { count: 5 })})</div>
+              <div className="backend">Oracle ({t("ans", { count: 6 })})</div>
               <div className="backend">Tomcat ({t("ans", { count: 10 })})</div>
               <div className="backend">
                 Hibernate ({t("ans", { count: 10 })})
@@ -444,18 +444,18 @@ export default function App() {
               <div className="build">Gitlab ({t("ans", { count: 10 })})</div>
               <div className="build">Git ({t("ans", { count: 10 })})</div>
               <div className="frontend">
-                Typescript ({t("ans", { count: 5 })})
+                Typescript ({t("ans", { count: 6 })})
               </div>
               <div className="frontend">
                 Selenium ({t("ans", { count: 15 })})
               </div>
               <div className="frontend">Vue.js ({t("ans", { count: 7 })})</div>
               <div className="frontend">
-                Capacitor ({t("ans", { count: 1 })})
+                Angular ({t("mois", { count: 8 })})
               </div>
               <div className="frontend">React ({t("mois", { count: 3 })})</div>
               <div className="frontend">
-                Angular ({t("mois", { count: 2 })})
+                Capacitor ({t("ans", { count: 1 })})
               </div>
               <div className="devops">Zabbix ({t("ans", { count: 15 })})</div>
               <div className="devops">Ansible ({t("ans", { count: 15 })})</div>
@@ -466,6 +466,34 @@ export default function App() {
       </div>
     );
   }
+function Abylsen() {
+    return (  <div className="occupation">
+        <div className="header">
+          <div className="company">Abylsen</div>
+          <div className="job">
+            {t(" Développeur senior Fullstack Java")}
+          </div>
+          <div className="infos">
+            <div className="location">
+              <FontAwesomeIcon icon={faLocationDot} className="icon" />
+              Grenoble
+            </div>
+            <div className="period">
+              <FontAwesomeIcon icon={faCalendar} className="icon" />
+              {t("since", { date: "Sept 2025" })}
+            </div>
+            <div className="duration">
+              <FontAwesomeIcon icon={faClock} className="icon" />
+              {t("mois", { count: 6 })}
+            </div>
+          </div>
+        </div>
+        <div className="missions">
+          <CGI />
+        </div>
+      </div>
+    );
+}
 
   function LaRoueVerte() {
     return (
@@ -499,6 +527,42 @@ export default function App() {
     );
   }
 
+  function CGI() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t(
+              "Développement fullstack Java/Angular"
+            )}
+            <div className="duration">
+              <FontAwesomeIcon icon={faClock} className="icon" />
+              {t("mois", { count: 6 })}
+            </div>
+          </div>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>{t("Plateforme d'acquisition et monitoring chauffage / climatisation")}</li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="db">Oracle</div>
+          <div className="backend">Java</div>
+          <div className="backend">Spring Boot</div>
+          <div className="backend">Kafka</div>
+          <div className="backend">Spring Data</div>
+          <div className="frontend">Angular</div>
+          <div className="frontend">Typescript</div>
+          <div className="frontend">RxJS</div>
+          <div className="frontend">Material Design</div>
+        </div>
+      </div>
+    );
+  }
+
+
   function Caesar() {
     return (
       <div className="mission">
@@ -506,7 +570,7 @@ export default function App() {
           <div className="job">
             <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
             {t(
-              "Technicien de mainenance / Développeur progiciel de gestion d'aggrégats"
+              "Technicien de maintenance / Développeur progiciel de gestion d'aggrégats"
             )}
             <div className="duration">
               <FontAwesomeIcon icon={faClock} className="icon" />
@@ -865,6 +929,50 @@ export default function App() {
       </div>
     );
   }
+  function NativSQL() {
+    return (
+      <div className="mission">
+        <div className="title">
+          <div className="job">
+            <FontAwesomeIcon icon={faSquareCaretRight} className="icon" />
+            {t("Librairie de mapping objet relationnel pour Java")}
+          </div>
+          <div className="duration">
+            <FontAwesomeIcon icon={faClock} className="icon" />
+            {t("semaines_en_one", { count: 1, year: 2026 })}
+          </div>
+        </div>
+        <div className="company">
+          NativSQL
+          <a
+            href="https://github.com/pascalheraud/nativsql"
+            target="_blank"
+            className="box-link"
+          >
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </a>
+        </div>
+        <div className="tasks">
+          <ul>
+            <li>
+              {t(
+                "Remise à plat d'une librairie ORM développée avec Claude Code"
+              )}
+            </li>
+            <li>{t("Faciliter la manipulation de base de données centrée sur SQL")}</li>
+          </ul>
+        </div>
+        <div className="technologies">
+          <div className="backend">Postgresql</div>
+          <div className="backend">Postgis</div>
+          <div className="backend">Java</div>
+          <div className="backend">Spring Boot</div>
+          <div className="frontend">React</div>
+          <div className="frontend">Typescript</div>
+        </div>
+      </div>
+    );
+  }
 
   function Auxiliaires() {
     return (
@@ -915,6 +1023,7 @@ export default function App() {
       </div>
     );
   }
+
   function RandoVTT() {
     return (
       <div className="mission">
@@ -1146,7 +1255,7 @@ export default function App() {
     );
   }
 
-  function ElectricytyMap() {
+  function ElectricityMap() {
     return (
       <div className="mission">
         <div className="job">
@@ -1431,13 +1540,14 @@ export default function App() {
           </div>
         </div>
         <div className="missions">
+          <NativSQL/>
           <RandoVTT />
           <Auxiliaires />
           <Diaps />
           <GrimpeRadar />
           <BanAutocompleteNG />
           <DataBuilder />
-          <ElectricytyMap />
+          <ElectricityMap />
         </div>
       </div>
     );
@@ -1464,6 +1574,7 @@ export default function App() {
               <div className="experiences">
                 <div className="title">{t("Expériences")}</div>
                 <div className="occupations">
+                  <Abylsen />
                   <LaRoueVerte />
                   <ObjetDirect />
                   <Aegis />

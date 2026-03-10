@@ -18,6 +18,8 @@ const resources = {
       semaines_en_other: "{{count}} semaines en {{year}}",
       jours_en_one: "{{count}} jour en {{year}}",
       jours_en_other: "{{count}} jours en {{year}}",
+      since: "Depuis {{date}}",
+      "./X/Pascal-HERAUD.pdf": "./6/Pascal-HERAUD-fr.pdf",
     },
   },
   en: {
@@ -34,8 +36,9 @@ const resources = {
       semaines_en_other: "{{count}} weeks in {{year}}",
       jours_en_one: "{{count}} day in {{year}}",
       jours_en_other: "{{count}} days in {{year}}",
+      since: "Since {{date}}",
       Formation: "Education",
-      "BAC E": "Baccalauréat",
+      "BAC E": "Scientific Baccalaureate",
       "DEA Informatique": "Master's degree in Computer Science",
       Français: "French",
       Anglais: "English",
@@ -48,7 +51,7 @@ const resources = {
       "Mode Geek": "Geek Mode",
       "Mode Clair": "Light Mode",
       "Mode Sombre": "Dark Mode",
-      "Orienté résultat": "Result oriented",
+      "Orienté résultat": "Results-oriented",
       Pragmatique: "Pragmatic",
       Curieux: "Curious",
       Rigoureux: "Rigorous",
@@ -181,7 +184,7 @@ const resources = {
         "Internships in microelectronics (FPGAs)",
       " Technicien maintenance / Développeur":
         "Maintenance Technician / Developer",
-      "Technicien de mainenance / Développeur progiciel de gestion d'aggrégats":
+      "Technicien de maintenance / Développeur progiciel de gestion d'aggrégats":
         "Maintenance Technician / Construction aggregate Management Software Developer",
       "Maintenance et installation sur site ":
         "On-site maintenance and installation",
@@ -204,12 +207,18 @@ const resources = {
       "Fullstack (Java et/ou JS)": "Fullstack (Java and/or JS)",
       Formateur: "Trainer",
       "Développement de l'application web": "Web application development",
-      "./5/Pascal-HERAUD-fr.pdf": "./5/Pascal-HERAUD-en.pdf",
+      "./X/Pascal-HERAUD.pdf": "./6/Pascal-HERAUD-en.pdf",
       "Code source sur GitHub": "Source code on GitHub",
-      "Conception / développement du site":"Design / development",
-      "Référencement":"SEO",
-      "Installation / déploiement sur serveur privé":"Installation / deployment on a private server",
-      "Site de mise en relation avec des auxiliaires de vie":"Matching platform for home care assistants"
+      "Conception / développement du site": "Design / development",
+      "Référencement": "SEO",
+      "Installation / déploiement sur serveur privé": "Installation / deployment on a private server",
+      "Site de mise en relation avec des auxiliaires de vie": "Matching platform for home care assistants",
+      "Plateforme d'acquisition et monitoring chauffage / climatisation": "Heating / cooling acquisition and monitoring platform",
+      "Développement fullstack Java/Angular": "Fullstack Java/Angular development",
+      " Développeur senior Fullstack Java": "Senior Fullstack Java Developer",
+      "Librairie de mapping objet relationnel pour Java": "Object-relational mapping library for Java",
+      "Remise à plat d'une librairie ORM développée avec Claude Code": "Overhaul of an ORM library developed with Claude Code",
+      "Faciliter la manipulation de base de données centrée sur SQL": "Make database manipulation SQL-centric easier"
     },
   },
 };
