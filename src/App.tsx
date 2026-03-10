@@ -443,6 +443,8 @@ export default function App() {
               <div className="build">Docker ({t("ans", { count: 10 })})</div>
               <div className="build">Gitlab ({t("ans", { count: 10 })})</div>
               <div className="build">Git ({t("ans", { count: 10 })})</div>
+              <div className="build">Copilot ({t("mois", { count: 9 })})</div>
+              <div className="build">Claude code ({t("mois", { count: 1 })})</div>
               <div className="frontend">
                 Typescript ({t("ans", { count: 6 })})
               </div>
@@ -557,6 +559,9 @@ function Abylsen() {
           <div className="frontend">Typescript</div>
           <div className="frontend">RxJS</div>
           <div className="frontend">Material Design</div>
+          <div className="build">Copilot</div>
+          <div className="build">GitLab</div>
+          <div className="build">Git</div>
         </div>
       </div>
     );
@@ -969,6 +974,8 @@ function Abylsen() {
           <div className="backend">Spring Boot</div>
           <div className="frontend">React</div>
           <div className="frontend">Typescript</div>
+          <div className="build">Claude Code</div>
+          <div className="build">GitHub</div>
         </div>
       </div>
     );
